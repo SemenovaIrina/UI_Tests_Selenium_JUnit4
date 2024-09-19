@@ -1,3 +1,4 @@
+import edu.praktikum.sprint4.pages.HomePage;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Test;
@@ -5,10 +6,11 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import edu.praktikum.sprint4.pages.HomePage;
 
 @RunWith(Parameterized.class)
 public class QuestionsAboutImportantTests {
+    private static final String URL = "https://qa-scooter.praktikum-services.ru/";
+
     private final String itemQuestionsHeadingText;
     private final String itemAnswerText;
     private WebDriver driver;
@@ -37,7 +39,7 @@ public class QuestionsAboutImportantTests {
     public void checkAnswerForQuestionTest() {
         // Запускаем браузер, переходим на сайт
         driver = new ChromeDriver();
-        driver.get("https://qa-scooter.praktikum-services.ru/");
+        driver.get(URL);
         HomePage page = new HomePage(driver);
         //ждем когда прогрузятся элементы
         page.waitForLoadQuestions();

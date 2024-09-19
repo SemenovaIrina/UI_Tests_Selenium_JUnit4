@@ -12,6 +12,8 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 @RunWith(Parameterized.class)
 public class MakeOrderTests {
+    private static final String URL = "https://qa-scooter.praktikum-services.ru/";
+
     private final String name;
     private final String surname;
     private final String address;
@@ -39,7 +41,7 @@ public class MakeOrderTests {
     public void prepare() {
         // Запускаем браузер, переходим на сайт
         driver = new ChromeDriver();
-        driver.get("https://qa-scooter.praktikum-services.ru/");
+        driver.get(URL);
     }
 
     // Тестовые данные

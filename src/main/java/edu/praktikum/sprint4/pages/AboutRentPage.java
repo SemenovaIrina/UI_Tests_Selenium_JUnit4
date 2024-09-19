@@ -12,6 +12,9 @@ import java.time.Duration;
 import java.util.List;
 
 public class AboutRentPage {
+    private static final String BLACK_COLOR = "black";
+    private static final String GREY_COLOR = "grey";
+
     private final WebDriver driver;
     //локатор для поля Дата
     private final By date = By.xpath(".//div[@class='react-datepicker__input-container']");
@@ -29,8 +32,8 @@ public class AboutRentPage {
     private final By modalWantRegister = By.className("Order_ModalHeader__3FDaJ");
     //локатор для кнопки Да
     private final By yesButton = By.xpath(".//button[@class='Button_Button__ra12g Button_Middle__1CSJM' and text()='Да']");
-    //локатор для всплывающего окна Заказ оформлен (если видна кнопка, то видно и само окно)
-    private final By modalOrderPlaced = By.xpath(".//div[@class='Order_NextButton__1_rCA']");
+    //локатор для всплывающего окна Заказ оформлен (через надпись "Заказ оформлен")
+    private final By modalOrderPlaced = By.xpath(".//div[@class='Order_ModalHeader__3FDaJ' and text()='Заказ оформлен']");
 
     public AboutRentPage(WebDriver driver) {
         this.driver = driver;
@@ -113,8 +116,8 @@ public class AboutRentPage {
         for (int i = 0; i < delta; i++) {
             buttonNextMonth.click();
         }
-        String d = String.format("react-datepicker__day--0%1$s",newDate.substring(0, 2));
-        String param = String.format(".//div[contains(@class,'%1$s') and not(contains(@class,'react-datepicker__day--outside-month'))]",d);
+        String d = String.format("react-datepicker__day--0%1$s", newDate.substring(0, 2));
+        String param = String.format(".//div[contains(@class,'%1$s') and not(contains(@class,'react-datepicker__day--outside-month'))]", d);
         WebElement day = driver.findElement(By.xpath(param));
         day.click();
     }
@@ -139,9 +142,9 @@ public class AboutRentPage {
     public void setColor(String color) {
         Assert.assertTrue("Поле для выбора цвета не доступно", driver.findElement(colorBlack).isEnabled());
         Assert.assertTrue("Поле для выбора цвета не доступно", driver.findElement(colorGrey).isEnabled());
-        if ("black".equals(color)) {
+        if (BLACK_COLOR.equals(color)) {
             driver.findElement(colorBlack).click();
-        } else if (("grey".equals(color))) {
+        } else if ((GREY_COLOR.equals(color))) {
             driver.findElement(colorGrey).click();
         }
     }

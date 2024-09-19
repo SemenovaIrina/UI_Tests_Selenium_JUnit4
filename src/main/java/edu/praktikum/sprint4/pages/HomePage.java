@@ -28,7 +28,7 @@ public class HomePage {
 
     //сетер, выбирающий элемент выпадающего списка с заданным заголовком, а также текст ответа, соответствующий ему
     public void setItemQuestionsAndAnswer(String itemText) {
-        String param = String.format(".//div[@class='accordion__button' and text() ='%1$s']",itemText);
+        String param = String.format(".//div[@class='accordion__button' and text() ='%1$s']", itemText);
         itemQuestionsHeading = By.xpath(param);
         List<WebElement> element = driver.findElements(itemQuestionsHeading);
         if (!element.isEmpty()) {
@@ -70,13 +70,10 @@ public class HomePage {
 
     //метод нажатия на кнопку Заказать внизу экрана
     public void clickOrderButtonBottom() {
-        Assert.assertTrue("Кнопка Заказать не доступна вверху страницы", driver.findElement(orderButtonBottom).isEnabled());
+        Assert.assertTrue("Кнопка Заказать не доступна внизу страницы", driver.findElement(orderButtonBottom).isEnabled());
         //прокручиваем страницу до нужного элемента списка
         WebElement item = driver.findElement(orderButtonBottom);
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", item);
         item.click();
     }
-    //технически можно было бы описать один метод click и передавать в него объект класса By
-    //но подумалось, что расплатой за краткость кода будет потеря прозрачности и понятности
-    //а также отсутствие возможности понять с какой именно кнопкой проблемы
 }
