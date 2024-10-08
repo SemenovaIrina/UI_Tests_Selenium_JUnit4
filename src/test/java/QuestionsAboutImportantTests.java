@@ -1,19 +1,34 @@
 import edu.praktikum.sprint4.pages.HomePage;
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 
 @RunWith(Parameterized.class)
-public class QuestionsAboutImportantTests {
-    private static final String URL = "https://qa-scooter.praktikum-services.ru/";
+public class QuestionsAboutImportantTests extends InfoForTests {
+    static final String[] QUESTIONS = new String[]{
+            "Сколько это стоит? И как оплатить?",
+            "Хочу сразу несколько самокатов! Так можно?",
+            "Как рассчитывается время аренды?",
+            "Можно ли заказать самокат прямо на сегодня?",
+            "Можно ли продлить заказ или вернуть самокат раньше?",
+            "Вы привозите зарядку вместе с самокатом?",
+            "Можно ли отменить заказ?",
+            "Я жизу за МКАДом, привезёте?"
+    };
+    static final String[] ANSWERS = new String[]{
+            "Сутки — 400 рублей. Оплата курьеру — наличными или картой.",
+            "Пока что у нас так: один заказ — один самокат. Если хотите покататься с друзьями, можете просто сделать несколько заказов — один за другим.",
+            "Допустим, вы оформляете заказ на 8 мая. Мы привозим самокат 8 мая в течение дня. Отсчёт времени аренды начинается с момента, когда вы оплатите заказ курьеру. Если мы привезли самокат 8 мая в 20:30, суточная аренда закончится 9 мая в 20:30.",
+            "Только начиная с завтрашнего дня. Но скоро станем расторопнее.",
+            "Пока что нет! Но если что-то срочное — всегда можно позвонить в поддержку по красивому номеру 1010.",
+            "Самокат приезжает к вам с полной зарядкой. Этого хватает на восемь суток — даже если будете кататься без передышек и во сне. Зарядка не понадобится.",
+            "Да, пока самокат не привезли. Штрафа не будет, объяснительной записки тоже не попросим. Все же свои.",
+            "Да, обязательно. Всем самокатов! И Москве, и Московской области."
+    };
 
     private final String itemQuestionsHeadingText;
     private final String itemAnswerText;
-    private WebDriver driver;
 
     public QuestionsAboutImportantTests(String itemQuestionsHeadingText, String itemAnswerText) {
         this.itemQuestionsHeadingText = itemQuestionsHeadingText;
@@ -24,22 +39,19 @@ public class QuestionsAboutImportantTests {
     @Parameterized.Parameters
     public static Object[][] getData() {
         return new Object[][]{
-                {"Сколько это стоит? И как оплатить?", "Сутки — 400 рублей. Оплата курьеру — наличными или картой."},
-                {"Хочу сразу несколько самокатов! Так можно?", "Пока что у нас так: один заказ — один самокат. Если хотите покататься с друзьями, можете просто сделать несколько заказов — один за другим."},
-                {"Как рассчитывается время аренды?", "Допустим, вы оформляете заказ на 8 мая. Мы привозим самокат 8 мая в течение дня. Отсчёт времени аренды начинается с момента, когда вы оплатите заказ курьеру. Если мы привезли самокат 8 мая в 20:30, суточная аренда закончится 9 мая в 20:30."},
-                {"Можно ли заказать самокат прямо на сегодня?", "Только начиная с завтрашнего дня. Но скоро станем расторопнее."},
-                {"Можно ли продлить заказ или вернуть самокат раньше?", "Пока что нет! Но если что-то срочное — всегда можно позвонить в поддержку по красивому номеру 1010."},
-                {"Вы привозите зарядку вместе с самокатом?", "Самокат приезжает к вам с полной зарядкой. Этого хватает на восемь суток — даже если будете кататься без передышек и во сне. Зарядка не понадобится."},
-                {"Можно ли отменить заказ?", "Да, пока самокат не привезли. Штрафа не будет, объяснительной записки тоже не попросим. Все же свои."},
-                {"Я жизу за МКАДом, привезёте?", "Да, обязательно. Всем самокатов! И Москве, и Московской области."},
+                {QUESTIONS[1], ANSWERS[1]},
+                {QUESTIONS[2], ANSWERS[2]},
+                {QUESTIONS[3], ANSWERS[3]},
+                {QUESTIONS[3], ANSWERS[3]},
+                {QUESTIONS[4], ANSWERS[4]},
+                {QUESTIONS[5], ANSWERS[5]},
+                {QUESTIONS[6], ANSWERS[6]},
+                {QUESTIONS[7], ANSWERS[7]},
         };
     }
 
     @Test
     public void checkAnswerForQuestionTest() {
-        // Запускаем браузер, переходим на сайт
-        driver = new ChromeDriver();
-        driver.get(URL);
         HomePage page = new HomePage(driver);
         //ждем когда прогрузятся элементы
         page.waitForLoadQuestions();
@@ -50,11 +62,5 @@ public class QuestionsAboutImportantTests {
         //проверяем соответствие отображаемого ответа ожидаемому
         Assert.assertEquals("Текст ответа на вопрос не совпадает с ожидаемым", itemAnswerText, page.getItemAnswerText());
 
-    }
-
-    @After
-    public void pageDown() {
-        // Закрываем браузер
-        driver.quit();
     }
 }

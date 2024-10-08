@@ -21,6 +21,8 @@ public class HomePage {
     private By itemQuestionsHeading;
     // локатор для текста, соответствующего элементу выпадающего списка
     private By itemAnswer;
+    //локатор для кнопки согласия на использование куки "Да все привыкли"
+    private final By cookiesButton = By.xpath(".//button[text()='да все привыкли']");
 
     public HomePage(WebDriver driver) {
         this.driver = driver;
@@ -41,6 +43,11 @@ public class HomePage {
 
     // метод ожидания загрузки элементов выпадающего списка
     public void waitForLoadQuestions() {
+        //закрываем окно про куки, чтобы оно не закрывало элементы
+        List<WebElement> element = driver.findElements(cookiesButton);
+        if (!element.isEmpty()) {
+            element.get(0).click();
+        }
         new WebDriverWait(driver, Duration.ofSeconds(3)).until(ExpectedConditions.visibilityOfElementLocated(By.className("accordion__button")));
     }
 
@@ -55,7 +62,10 @@ public class HomePage {
 
     // метод для получения текста ответа для элемента выпадающего списка (текст возвращается только если ответ отображается)
     public String getItemAnswerText() {
-        Assert.assertTrue("Текст ответа не отображается на странице", driver.findElement(itemAnswer).isDisplayed());
+        //ждем пока прогрузится нужный ответ
+        WebElement item = driver.findElement(itemAnswer);
+        new WebDriverWait(driver, Duration.ofSeconds(3)).until(ExpectedConditions.visibilityOfElementLocated(itemAnswer));
+        Assert.assertTrue("Текст ответа не отображается на странице", item.isDisplayed());
         return driver.findElement(itemAnswer).getText();
     }
 

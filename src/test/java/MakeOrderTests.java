@@ -1,19 +1,13 @@
 import edu.praktikum.sprint4.pages.AboutRentPage;
 import edu.praktikum.sprint4.pages.HomePage;
 import edu.praktikum.sprint4.pages.OrderPage;
-import org.junit.After;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 
 @RunWith(Parameterized.class)
-public class MakeOrderTests {
-    private static final String URL = "https://qa-scooter.praktikum-services.ru/";
-
+public class MakeOrderTests extends InfoForTests {
     private final String name;
     private final String surname;
     private final String address;
@@ -23,7 +17,6 @@ public class MakeOrderTests {
     private final int periodItem;
     private final String color;
     private final String comments;
-    private WebDriver driver;
 
     public MakeOrderTests(String name, String surname, String address, int metroStationItem, String telephone, String date, int periodItem, String color, String comments) {
         this.name = name;
@@ -35,13 +28,6 @@ public class MakeOrderTests {
         this.periodItem = periodItem;
         this.color = color;
         this.comments = comments;
-    }
-
-    @Before
-    public void prepare() {
-        // Запускаем браузер, переходим на сайт
-        driver = new ChromeDriver();
-        driver.get(URL);
     }
 
     // Тестовые данные
@@ -97,11 +83,5 @@ public class MakeOrderTests {
         //подтверждаем оформление заказа нажатием кнопки Да
         nextOrderPage.clickYesButton();
         Assert.assertTrue("Окно не доступно", nextOrderPage.checkIsVisibleModalOrderPlaced());
-    }
-
-    @After
-    public void pageDown() {
-        // Закрываем браузер
-        driver.quit();
     }
 }

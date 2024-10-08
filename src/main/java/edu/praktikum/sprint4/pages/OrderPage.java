@@ -32,7 +32,7 @@ public class OrderPage {
 
     // метод ожидания загрузки страницы (если загрузилась кнопка Далее, то большая часть страницы также должна прогрузиться)
     public void waitForLoadPage() {
-        new WebDriverWait(driver, Duration.ofSeconds(10)).until(ExpectedConditions.visibilityOfElementLocated(By.xpath(".//div[@class='Order_Header__BZXOb']")));
+        new WebDriverWait(driver, Duration.ofSeconds(10)).until(ExpectedConditions.visibilityOfElementLocated(thenButton));
     }
 
     // метод вводит значение в поле Имя
@@ -78,7 +78,8 @@ public class OrderPage {
     public void clickThenButton() {
         Assert.assertTrue("Кнопка Далее не доступна", driver.findElement(thenButton).isEnabled());
         //скролл не помогает и сообщение о куки закрывает кнопку Далее, поэтому нажмем на кнопку "да, все привыкли", чтобы скрыть это сообщение
-        driver.findElement(By.id("rcc-confirm-button")).click();
+        driver.findElement(thenButton).click();
+        //driver.findElement(By.id("rcc-confirm-button")).click();
         driver.findElement(thenButton).click();
     }
 
