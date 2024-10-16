@@ -39,9 +39,9 @@ public class QuestionsAboutImportantTests extends InfoForTests {
     @Parameterized.Parameters
     public static Object[][] getData() {
         return new Object[][]{
+                {QUESTIONS[0], ANSWERS[0]},
                 {QUESTIONS[1], ANSWERS[1]},
                 {QUESTIONS[2], ANSWERS[2]},
-                {QUESTIONS[3], ANSWERS[3]},
                 {QUESTIONS[3], ANSWERS[3]},
                 {QUESTIONS[4], ANSWERS[4]},
                 {QUESTIONS[5], ANSWERS[5]},
